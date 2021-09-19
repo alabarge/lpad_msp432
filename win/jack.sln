@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app", "app\app.vcxproj", "{5E13D219-280E-4C89-BC44-A86740840694}"
+	ProjectSection(ProjectDependencies) = postProject
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC} = {52CF496D-1E32-4936-B9E8-ED46B46AADDC}
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1} = {A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7} = {9C6E64DC-A002-4A73-9447-467F118FEBF7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cmapi", "cmapi\cmapi.vcxproj", "{9C6E64DC-A002-4A73-9447-467F118FEBF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cm_com", "cm_com", "{A3445255-0068-49C6-A2C3-8697EEC5BE19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Notes", "Build Notes", "{7BD8A0D8-BE47-4B16-B9F8-88FB26002AF2}"
+	ProjectSection(SolutionItems) = preProject
+		build_notes.txt = build_notes.txt
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "comapi", "comapi\comapi.vcxproj", "{52CF496D-1E32-4936-B9E8-ED46B46AADDC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7} = {9C6E64DC-A002-4A73-9447-467F118FEBF7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "optoapi", "optoapi\optoapi.vcxproj", "{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7} = {9C6E64DC-A002-4A73-9447-467F118FEBF7}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E13D219-280E-4C89-BC44-A86740840694}.Debug|x64.ActiveCfg = Debug|x64
+		{5E13D219-280E-4C89-BC44-A86740840694}.Debug|x64.Build.0 = Debug|x64
+		{5E13D219-280E-4C89-BC44-A86740840694}.Debug|x86.ActiveCfg = Debug|x64
+		{5E13D219-280E-4C89-BC44-A86740840694}.Release|x64.ActiveCfg = Release|x64
+		{5E13D219-280E-4C89-BC44-A86740840694}.Release|x64.Build.0 = Release|x64
+		{5E13D219-280E-4C89-BC44-A86740840694}.Release|x86.ActiveCfg = Release|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Debug|x64.ActiveCfg = Debug|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Debug|x64.Build.0 = Debug|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Debug|x86.ActiveCfg = Debug|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Release|x64.ActiveCfg = Release|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Release|x64.Build.0 = Release|x64
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7}.Release|x86.ActiveCfg = Release|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Debug|x64.ActiveCfg = Debug|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Debug|x64.Build.0 = Debug|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Debug|x86.ActiveCfg = Debug|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Release|x64.ActiveCfg = Release|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Release|x64.Build.0 = Release|x64
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC}.Release|x86.ActiveCfg = Release|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Debug|x64.ActiveCfg = Debug|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Debug|x64.Build.0 = Debug|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Debug|x86.ActiveCfg = Debug|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Release|x64.ActiveCfg = Release|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Release|x64.Build.0 = Release|x64
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C6E64DC-A002-4A73-9447-467F118FEBF7} = {A3445255-0068-49C6-A2C3-8697EEC5BE19}
+		{52CF496D-1E32-4936-B9E8-ED46B46AADDC} = {A3445255-0068-49C6-A2C3-8697EEC5BE19}
+		{A85A10B7-6E55-4B40-9E08-9D82C9E11EF1} = {A3445255-0068-49C6-A2C3-8697EEC5BE19}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66351881-7B3E-4068-89D7-CD65FD6BB2B1}
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\VisuLATTE.ndproj"
+	EndGlobalSection
+EndGlobal
