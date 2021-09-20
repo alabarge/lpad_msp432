@@ -44,6 +44,7 @@ protected:
    UINT     m_apOverwriteWarn;
    UINT     m_apMessageDropWarn;
    UINT     m_apLogCMTraffic;
+   UINT     m_apBitEnable;
 
 protected:
 

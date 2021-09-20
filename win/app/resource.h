@@ -234,6 +234,8 @@
 #define IDC_PRJ_SET_OVERWRITE_WARN      9616
 #define IDC_PRJ_SET_MESSAGE_DROPPED_WARN 9617
 #define IDC_PRJ_SET_LOG_CM_TRAFFIC      9618
+#define IDC_PRJ_SET_LOG_CM_TRAFFIC2     9619
+#define IDC_PRJ_SET_BIT_BANG            9619
 #define IDD_SRV                         10800
 #define IDD_SRV_TIP                     10801
 #define IDD_CLI                         11000

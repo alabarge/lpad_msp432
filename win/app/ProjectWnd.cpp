@@ -22,6 +22,7 @@ CProjectWnd::CProjectWnd()
    m_apOverwriteWarn = 0;
    m_apMessageDropWarn = 0;
    m_apLogCMTraffic = 0;
+   m_apBitEnable = 0;
 }
 
 CProjectWnd::~CProjectWnd()
@@ -108,6 +109,7 @@ void CProjectWnd::OnSettings()
       pDoc->m_ini->apOverwriteWarn = m_apOverwriteWarn;
       pDoc->m_ini->apMessageDropWarn = m_apMessageDropWarn;
       pDoc->m_ini->apLogCMTraffic = m_apLogCMTraffic;
+      pDoc->m_ini->apBitEnable = m_apBitEnable;
    }
 }
 
@@ -141,6 +143,7 @@ void CProjectWnd::Serialize(CArchive& ar)
       pDoc->m_ini->apOverwriteWarn   = m_apOverwriteWarn;
       pDoc->m_ini->apMessageDropWarn   = m_apMessageDropWarn;
       pDoc->m_ini->apLogCMTraffic   = m_apLogCMTraffic;
+      pDoc->m_ini->apBitEnable   = m_apBitEnable;
    }
    //
    // De-serialize the MainFrame data from storage
@@ -153,6 +156,7 @@ void CProjectWnd::Serialize(CArchive& ar)
       m_apOverwriteWarn   = pDoc->m_ini->apOverwriteWarn;
       m_apMessageDropWarn   = pDoc->m_ini->apMessageDropWarn;
       m_apLogCMTraffic   = pDoc->m_ini->apLogCMTraffic;
+      m_apBitEnable   = pDoc->m_ini->apBitEnable;
    }
 }
 
@@ -165,6 +169,7 @@ void CProjectWnd::OnNewDoc(PINITYPE ini)
       m_apOverwriteWarn   = ini->apOverwriteWarn;
       m_apMessageDropWarn   = ini->apMessageDropWarn;
       m_apLogCMTraffic   = ini->apLogCMTraffic;
+      m_apBitEnable   = ini->apBitEnable;
    }
 }
 

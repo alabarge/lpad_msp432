@@ -483,6 +483,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,72,144,10
     CONTROL         "Log CM Traffic to File",IDC_PRJ_SET_LOG_CM_TRAFFIC,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,84,144,10
+    CONTROL         "Use FTDI Bit-Bang Device",IDC_PRJ_SET_BIT_BANG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,96,144,10
 END
 
 IDD_CP_RPC DIALOGEX 0, 0, 368, 158

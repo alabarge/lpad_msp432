@@ -20,6 +20,8 @@ public:
    INT      m_apOverwriteWarn;
    INT      m_apMessageDropWarn;
    INT      m_apLogCMTraffic;
+   INT      m_apBitEnable;
+
 protected:
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

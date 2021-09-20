@@ -42,7 +42,6 @@ BEGIN_MESSAGE_MAP(CConView, CViewEx)
    ON_MESSAGE(WM_DEV_ARRIVE, &CConView::OnDevArrive)
    ON_MESSAGE(WM_DEV_ERROR, &CConView::OnDevError)
    ON_MESSAGE(WM_CM_MESSAGE, &CConView::OnCmMsg)
-   ON_MESSAGE(WM_UDP_MESSAGE, &CConView::OnUDPMsg)
    ON_MESSAGE(WM_DISCONNECT, &CConView::OnDisconnect)
    ON_WM_TIMER()
    ON_WM_DEVICECHANGE()
@@ -69,6 +68,7 @@ CConView::CConView()
 
    m_nCom         = APP_CON_NONE;
    m_nComDelta    = APP_CON_NONE;
+   m_bitPort      = 0;
 
    m_id           = CM_PORT_COM0;
    m_autoRefresh  = FALSE;
@@ -299,18 +299,11 @@ afx_msg LRESULT CConView::OnCmMsg(WPARAM wParam, LPARAM lParam)
    return 0;
 }
 
-afx_msg LRESULT CConView::OnUDPMsg(WPARAM wParam, LPARAM lParam)
-{
-   CMainFrame* pMainFrm = (CMainFrame*)AfxGetMainWnd();
-   return 0;
-}
-
 afx_msg LRESULT CConView::OnDisconnect(WPARAM wParam, LPARAM lParam)
 {
    // If connected then disconnect
    if (m_nCom != APP_CON_NONE)
       OnBnClickedConConnect();
-
    return 0;
 }
 
@@ -430,6 +423,50 @@ void CConView::OnBnClickedConRefresh()
          }
       }
    }
+   //
+   // BIT-BANG DEVICE
+   //
+   if (pDoc->m_ini->apBitEnable) {
+      // available devices?
+      devCnt = bit_query(&m_pBITInfo);
+      if (devCnt == 0) {
+         str.Format(_T("Warning : No BIT Devices Available\n"));
+         pDoc->Log(str, APP_MSG_WARNING);
+      }
+      // parse device info
+      else {
+         if (devCnt <= BIT_MAX_DEVICES) {
+            for (i=0,j=0;i<devCnt;i++) {
+               CA2W serial(m_pBITInfo[i].serial);
+               CA2W desc(m_pBITInfo[i].desc);
+               // Check for BIT Omniware Serial
+               if (serial.m_psz[0] == 'O' && serial.m_psz[1] == '4') {
+                  if ((m_pBITInfo[i].id == BIT_VID_PID && m_pBITInfo[i].flags != 1) ||
+                      (m_pBITInfo[i].id == BIT_VID_PID_ALT && m_pBITInfo[i].flags != 1)) {
+                     str.Format(_T("BIT.%d \t:\n"), i); pDoc->Log(str, APP_MSG_HIGHLITE);
+                  }
+                  else {
+                     str.Format(_T("BIT.%d \t: Unavailable\n"), i); pDoc->Log(str, APP_MSG_ERROR);
+                  }
+               }
+               else {
+                  str.Format(_T("BIT.%d \t: Unavailable\n"), i); pDoc->Log(str, APP_MSG_ERROR);
+               }
+               str.Format(_T(" flags \t: %08X\n"), m_pBITInfo[i].flags);  pDoc->Log(str);
+               str.Format(_T(" type  \t: %08X\n"), m_pBITInfo[i].type);   pDoc->Log(str);
+               str.Format(_T(" id    \t: %08X\n"), m_pBITInfo[i].id);     pDoc->Log(str);
+               str.Format(_T(" locid \t: %08X\n"), m_pBITInfo[i].locid);  pDoc->Log(str);
+               str.Format(_T(" serial\t: %s\n"),   serial.m_psz);         pDoc->Log(str);
+               str.Format(_T(" desc  \t: %s\n"),   desc.m_psz);           pDoc->Log(str);
+               str.Format(_T(" handle\t: %08X\n"), m_pBITInfo[i].handle); pDoc->Log(str);
+            }
+         }
+         else {
+            str.Format(_T("Error : Maximum Attached Devices Exceeded, %d\n"), devCnt);
+            GetDoc()->Log(str, APP_MSG_ERROR);
+         }
+      }
+   }
 
    // Update Form Items
    OnUpdateConfig(FALSE);
@@ -451,6 +488,9 @@ void CConView::OnBnClickedConConnect()
    CHAR    *csc_rev = NULL;
    UCHAR    macip[20] = { 0x6C, 0x2B, 0x59, 0xD6, 0xF5, 0x04, 0xC0, 0xA8, 0x01, 0x3E };
    INT      curPos = 0;
+
+   uint32_t devCnt;
+   UINT     i;
 
    CappDoc  *pDoc = GetDoc();
    CMainFrame* pMainFrm = (CMainFrame*)AfxGetMainWnd();
@@ -583,6 +623,53 @@ void CConView::OnBnClickedConConnect()
             }
          }
       }
+      //
+      // BIT-BANG DEVICE
+      //
+      if (pDoc->m_ini->apBitEnable) {
+         // available devices?
+         devCnt = bit_query(&m_pBITInfo);
+         if (devCnt == 0) {
+            str.Format(_T("Warning : No BIT Devices Available\n"));
+            pDoc->Log(str, APP_MSG_WARNING);
+         }
+         // parse device info, use first available
+         else {
+            if (devCnt <= BIT_MAX_DEVICES) {
+               for (i=0;i<devCnt;i++) {
+                  CA2W serial(m_pBITInfo[i].serial);
+                  CA2W desc(m_pBITInfo[i].desc);
+                  // Check for BIT Omniware Serial
+                  if (serial.m_psz[0] == 'O' && serial.m_psz[1] == '4') {
+                     if ((m_pBITInfo[i].id == BIT_VID_PID && m_pBITInfo[i].flags != 1) ||
+                         (m_pBITInfo[i].id == BIT_VID_PID_ALT && m_pBITInfo[i].flags != 1)) {
+                        // Open the BIT Port
+                        m_bitPort = i;
+                        result = bit_init(m_bitPort);
+                        // Check Device ID
+                        if (result != BIT_OK) {
+                           str.Format(_T("Error : Failed to Open BIT.%d Device\n"), i);
+                           GetDoc()->Log(str, APP_MSG_ERROR);
+                        }
+                        else {
+                           str.Format(_T("BIT.%d \t: Connected\n"), i); pDoc->Log(str, APP_MSG_HIGHLITE);
+                        }
+                     }
+                     else {
+                        str.Format(_T("BIT.%d \t: Unavailable\n"), i); pDoc->Log(str, APP_MSG_ERROR);
+                     }
+                  }
+                  else {
+                     str.Format(_T("BIT.%d \t: Unavailable\n"), i); pDoc->Log(str, APP_MSG_ERROR);
+                  }
+               }
+            }
+            else {
+               str.Format(_T("Error : Maximum Attached Devices Exceeded, %d\n"), devCnt);
+               GetDoc()->Log(str, APP_MSG_ERROR);
+            }
+         }
+      }
    }
    //
    // DISCONNECT
@@ -637,6 +724,15 @@ void CConView::OnBnClickedConConnect()
          pMainFrm->m_nPort   = APP_PORT_NONE;
          pMainFrm->m_nPortId = 0;
          pMainFrm->m_hCom    = NULL;
+      }
+      //
+      // BIT-BANG DEVICE
+      //
+      if (pDoc->m_ini->apBitEnable) {
+         CA2W serial(m_pBITInfo[m_bitPort].serial);
+         str.Format(_T("Closed BIT.%d (%s)\n"), m_bitPort, serial.m_psz);
+         GetDoc()->Log(str);
+         bit_final();
       }
    }
 

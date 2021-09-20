@@ -6,6 +6,7 @@
 #include "MainFrm.h"
 #include "comapi.h"
 #include "optoapi.h"
+#include "bitapi.h"
 #include "timer.h"
 
 class CConView : public CViewEx
@@ -62,11 +63,13 @@ protected:
             
    opto_dev_info_t  *m_pOPTOInfo;
    com_dev_info_t   *m_pCOMInfo;
+   bit_dev_info_t   *m_pBITInfo;
 
    INT            m_comPort;
    INT            m_comSpeed;
    BOOL           m_autoRefresh;
    CHRTimer       m_timer;
+   INT            m_bitPort;
 
    UINT           m_id;
 
@@ -96,7 +99,6 @@ public:
    afx_msg LRESULT OnDevArrive(WPARAM wParam, LPARAM lParam);
    afx_msg LRESULT OnDevError(WPARAM wParam, LPARAM lParam);
    afx_msg LRESULT OnCmMsg(WPARAM wParam, LPARAM lParam);
-   afx_msg LRESULT OnUDPMsg(WPARAM wParam, LPARAM lParam);
    afx_msg LRESULT OnDisconnect(WPARAM wParam, LPARAM lParam);
 
    afx_msg void OnTimer(UINT_PTR nIDEvent);

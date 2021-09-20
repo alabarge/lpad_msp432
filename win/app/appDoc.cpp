@@ -67,6 +67,7 @@ CappDoc::CappDoc()
       {_T("ap.messageDropWarn"), _T("1"),                   DOC_UINT,      &m_ini->apMessageDropWarn, 1,       0x00000000,    _T(""),              _T("")},
       {_T("ap.logCMTraffic"),    _T("0"),                   DOC_UINT,      &m_ini->apLogCMTraffic,    1,       0x00000000,    _T(""),              _T("")},
       {_T("ap.logEnable"),       _T("0"),                   DOC_UINT,      &m_ini->apLogEnable,       1,       0x00000000,    _T(""),              _T("")},
+      {_T("ap.bitEnable"),       _T("0"),                   DOC_UINT,      &m_ini->apBitEnable,       1,       0x00000000,    _T(""),              _T("")},
       //                                                                                                                      ,
       // Connection                                                                                                           ,
       //                                                                                                                      ,

@@ -20,6 +20,7 @@ CProjectSet::CProjectSet(CWnd* pParent)
    m_apOverwriteWarn = 0;
    m_apMessageDropWarn = 0;
    m_apLogCMTraffic = 0;
+   m_apBitEnable = 0;
 }
 
 CProjectSet::~CProjectSet()
@@ -37,6 +38,7 @@ void CProjectSet::DoDataExchange(CDataExchange* pDX)
    DDX_Check(pDX, IDC_PRJ_SET_OVERWRITE_WARN, m_apOverwriteWarn);
    DDX_Check(pDX, IDC_PRJ_SET_MESSAGE_DROPPED_WARN, m_apMessageDropWarn);
    DDX_Check(pDX, IDC_PRJ_SET_LOG_CM_TRAFFIC, m_apLogCMTraffic);
+   DDX_Check(pDX, IDC_PRJ_SET_BIT_BANG, m_apBitEnable);
    // Transfer Dialog to Parent
    if (pDX->m_bSaveAndValidate == TRUE) {
       pP->m_apAutoSave = m_apAutoSave;
@@ -46,6 +48,7 @@ void CProjectSet::DoDataExchange(CDataExchange* pDX)
       pP->m_apOverwriteWarn = m_apOverwriteWarn;
       pP->m_apMessageDropWarn = m_apMessageDropWarn;
       pP->m_apLogCMTraffic = m_apLogCMTraffic;
+      pP->m_apBitEnable = m_apBitEnable;
       if (m_apLogCMTraffic) cm_log(NULL, CM_LOG_ENABLE);
       else cm_log(NULL, CM_LOG_DISABLE);
    }
@@ -70,6 +73,7 @@ BOOL CProjectSet::OnInitDialog()
    m_apOverwriteWarn = pP->m_apOverwriteWarn;
    m_apMessageDropWarn = pP->m_apMessageDropWarn;
    m_apLogCMTraffic = pP->m_apLogCMTraffic;
+   m_apBitEnable = pP->m_apBitEnable;
    UpdateData(FALSE);
 
    // Default Dialog Background

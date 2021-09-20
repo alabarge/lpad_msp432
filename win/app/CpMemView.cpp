@@ -702,6 +702,8 @@ void CCpMemView::OnBlkRdResp(pcm_msg_t pMsg)
    cm_send_t   ps   = {0};
    pcp_block_msg_t rsp = (pcp_block_msg_t)pMsg;
 
+   bit_tx(BIT_TP7, BIT_OFF);
+
    switch(m_cpMemType) {
       case CFG_INT8U:
          pUCHAR = (UCHAR *)rsp->b.data;
@@ -876,6 +878,9 @@ void CCpMemView::OnBlkWrResp(pcm_msg_t pMsg)
    UCHAR    *pINT8U  = (UCHAR *)pDoc->m_pCpBuf;
    USHORT   *pINT16U = (USHORT *)pDoc->m_pCpBuf;
    UINT     *pINT32U = (UINT *)pDoc->m_pCpBuf;
+
+
+   bit_tx(BIT_TP7, BIT_ON);
 
    index    = rsp->b.index;
    address  = rsp->b.address;

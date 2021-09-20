@@ -185,6 +185,7 @@ typedef struct _INITYPE {
    INT      apOverwriteWarn;
    INT      apMessageDropWarn;
    INT      apLogCMTraffic;
+   INT      apBitEnable;
 
    // Connection
    INT      conComCon;
